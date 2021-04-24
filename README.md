@@ -1,3 +1,3 @@
 Basic and Oversimplified Operating System
 
-`$>run bootSector.asm`
+`$>run bootSector`
