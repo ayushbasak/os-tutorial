@@ -1,0 +1,5 @@
+#!/bin/bash
+nasm -f bin $1.asm -o $1.bin
+echo "Compiled Binary"
+echo "Running qemu for $1.bin"
+qemu-system-i386 "$1.bin"
