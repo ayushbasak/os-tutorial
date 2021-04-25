@@ -1,4 +1,7 @@
 [org 0x7c00]
+
+; memory organization
+; basic TTY
 mov ah, 0x0e ; enter TTY mode
 mov al, [secret]
 int 0x10
@@ -28,9 +31,34 @@ loop0:	mov al, bl
 	sub cx, 1
 	jnz loop0
 
+;STACK implementation
+call nl
 
-loop1:
-    jmp loop1 
+mov bp, 0x9000
+mov sp, bp
+
+push 'A'
+push 'B'
+push 'C'
+
+pop bx
+mov al, bl ; print C
+int 0x10
+call spa
+pop bx
+mov al, bl ; print B
+int 0x10
+call spa
+pop bx
+mov al, bl ; print A
+int 0x10
+
+;Note: A full word is popped during pop operation
+;but the stack pointer moves by a BYTE
+
+
+loop:
+    jmp loop 
 
 secret:
 	db 'M'
