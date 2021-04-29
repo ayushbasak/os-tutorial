@@ -52,9 +52,24 @@ call spa
 pop bx
 mov al, bl ; print A
 int 0x10
-
+call nl
 ;Note: A full word is popped during pop operation
 ;but the stack pointer moves by a BYTE
+
+	mov bx, 0
+	mov cx, 11 ;length of string
+loop1:	mov al, [myname + bx]
+	; Note: Only register bx can be used for indexing
+	int 0x10
+	inc bx
+	cmp cx, bx
+	jnz loop1
+
+;	mov bx, OFFSET myname
+;loop1:	mov al, BYTE PTR [bx]
+;	inc bx
+;	cmp al, 0
+;	jnz loop1
 
 
 loop:
@@ -62,6 +77,9 @@ loop:
 
 secret:
 	db 'M'
+
+myname:
+	db "Ayush Basak", 0
 
 ;subroutines
 nl:
