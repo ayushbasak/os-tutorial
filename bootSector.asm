@@ -65,21 +65,31 @@ loop1:	mov al, [myname + bx]
 	cmp cx, bx
 	jnz loop1
 
-;	mov bx, OFFSET myname
-;loop1:	mov al, BYTE PTR [bx]
-;	inc bx
-;	cmp al, 0
-;	jnz loop1
+call nl
 
+;Using External asm files to call subroutines
+mov bx, mystring
+call print
+call print_nl
+
+mov dx, 0x12fe
+call print_hex
+call print_nl
 
 loop:
     jmp loop 
+
+%include "print_basic.asm"
+%include "print_hex.asm"
 
 secret:
 	db 'M'
 
 myname:
 	db "Ayush Basak", 0
+
+mystring:
+	db "This line is to be printed by an external print subroutine", 0
 
 ;subroutines
 nl:
